@@ -36,9 +36,9 @@ public class MethodLibrary {
         }
         return false;
     }
-    public static boolean equalsNofunction(String arguments)
+    public static boolean equalsNofunction(String arguments, String equals)
     {
-        if (arguments.equals(arguments))
+        if (arguments.equals(equals))
         {
                 return true;
         }

@@ -18,22 +18,23 @@ public class SpeedTest {
         long startTime;
         long runtime1 = 0;
         long runtime2 = 0;
-
+        /* 
         System.out.println("Preparing tests ");
-        /* Your function calls here */
+        /* Your function calls here 
         run1result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
-        //run1result = MethodLibrary.equalsNofunction(commandLineArguments);
+        run1result = MethodLibrary.equalsNofunction(commandLineArguments);
         //run1result = MethodLibrary.containsfunction(commandLine, "calc.exe");
-        run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
-        System.out.println("Ok Running test: ");
+        //run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
+         */
+        System.out.println("Running test: ");
         
         do {
             for(int i = 0; i < 1000; ++i)
             {
                 startTime = System.nanoTime();
                 /* Your function call here */
-                run1result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
-                //run1result = MethodLibrary.equalsNofunction(commandLineArguments);
+                //run1result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
+                run1result = MethodLibrary.equalsNofunction(commandLineArguments, "calc.exe");
                 //run1result = MethodLibrary.containsfunction(commandLine, "calc.exe");
                 runtime1 = runtime1 +  System.nanoTime() - startTime;
             }
@@ -42,9 +43,10 @@ public class SpeedTest {
             {
                 startTime = System.nanoTime();
                 /* Your second function call here */
-                run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
-                //run2result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
+                //run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
+                run2result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
                 //run2result = MethodLibrary.containsfunction(commandLine, "calc.exe");
+                //run1result = MethodLibrary.containsfunction(commandLine, "calc.exe");
                 runtime2 = runtime2 + System.nanoTime() - startTime;
             }
 
