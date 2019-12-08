@@ -1,4 +1,4 @@
-package speedtest;
+package functions;
 
 import java.util.List;
 /**
@@ -6,7 +6,7 @@ import java.util.List;
  */
 public class MathFunctions {
 
-    public static int averageSum(final long value, final int count)
+    public static int averageSum(long value, int count)
     {
         // Calculate average result
         return (int)value / count;
@@ -14,7 +14,7 @@ public class MathFunctions {
     }
     public static float getPercentage(int val1, int val2, int size)
     {
-        final double q = (((double)averageSum(val1, size) - averageSum(val2, size)) / averageSum(val1, size))*100;
+        double q = (((double)averageSum(val1, size) - averageSum(val2, size)) / averageSum(val1, size))*100;
         return (float)q;
     }
 

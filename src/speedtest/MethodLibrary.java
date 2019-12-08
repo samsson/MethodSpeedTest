@@ -1,6 +1,6 @@
 package speedtest;
 
-public class LibraryFunctions {
+public class MethodLibrary {
 
     public static String parseCommandArguments(final String parse_command_line)
     {
@@ -27,9 +27,9 @@ public class LibraryFunctions {
         }
     }
     
-    public static boolean equalsfunction(final String commandline, final String commandLineArguments)
+    public static boolean equalsfunction(String commandline, final String commandLineArguments)
     {
-        final String commandLineNew = parseCommandArguments(commandline);
+        String commandLineNew = parseCommandArguments(commandline);
         if (commandLineNew.equals(commandLineArguments))
         {
                 return true;
@@ -37,10 +37,18 @@ public class LibraryFunctions {
         return false;
     }
 
-    public static boolean matchesfunction(final String commandline)
+    public static boolean matchesfunction(String commandline, String regex)
     {
-        // .*calc\\.exe
-        if (commandline.matches(".*calc\\.exe"))
+        if (commandline.matches(regex))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean containsfunction(String commandline, String arguments)
+    {
+        if (commandline.matches(arguments))
         {
             return true;
         }
