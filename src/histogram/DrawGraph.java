@@ -104,8 +104,7 @@ public class DrawGraph extends JPanel {
          scores.add(random.nextInt(maxScore));
       }
       DrawGraph mainPanel = new DrawGraph(scores);
-
-      JFrame frame = new JFrame("DrawGraph");
+      JFrame frame = new JFrame("Graph");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.getContentPane().add(mainPanel);
       frame.pack();

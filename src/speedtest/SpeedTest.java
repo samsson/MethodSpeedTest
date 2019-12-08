@@ -23,8 +23,9 @@ public class SpeedTest {
         System.out.println("Preparing tests ");
         /* Your function calls here */
         run1result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
+        run1result = MethodLibrary.equalsNofunction(commandLineArguments);
         //run1result = MethodLibrary.containsfunction(commandLine, "calc.exe");
-        run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
+        //run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
         System.out.println("Ok Running test: ");
         
         do {
@@ -32,7 +33,8 @@ public class SpeedTest {
             {
                 startTime = System.nanoTime();
                 /* Your function call here */
-                run1result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
+                //run1result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
+                run1result = MethodLibrary.equalsNofunction(commandLineArguments);
                 //run1result = MethodLibrary.containsfunction(commandLine, "calc.exe");
                 runtime1 = runtime1 +  System.nanoTime() - startTime;
             }
@@ -41,12 +43,11 @@ public class SpeedTest {
             {
                 startTime = System.nanoTime();
                 /* Your second function call here */
-                run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
+                //run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
+                run2result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
                 //run2result = MethodLibrary.containsfunction(commandLine, "calc.exe");
                 runtime2 = runtime2 + System.nanoTime() - startTime;
             }
-
-            //System.out.println("Equals & matches in milli: " + run1result + " " + runtime1 + " " + run2result + " " + runtime2 + " "); 
 
             run1.add((int)runtime1);
             run2.add((int)runtime2);
@@ -65,11 +66,6 @@ public class SpeedTest {
         if (runMedian1 < runMedian2)
         {
             System.out.println("method1 is " + MathFunctions.getPercentage(runMedian2, runMedian1, a) + " percent faster.");
-            /* 
-            double q = (((double)averageSum(matchesSum, a) - averageSum(equalSum, a)) / averageSum(matchesSum, a))*100;
-            float percentage2 = (float)q;
-            System.out.println("Equals is " + percentage2 + " percent faster.");
-             */
         } 
         else
         {
@@ -80,12 +76,3 @@ public class SpeedTest {
 
     }
 }
-
-/* final int height = 256;
-        final int[][] data = new int[MedianList1.size()][height];
-        
-        for (int c = 0; c < height; c++) {
-            for (int r = 0; r < MedianList1.size(); r++) {
-                data[c][r] = MedianList1.get(r).intValue();
-            }
-        } */

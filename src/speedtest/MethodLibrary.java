@@ -27,10 +27,18 @@ public class MethodLibrary {
         }
     }
     
-    public static boolean equalsfunction(String commandline, final String commandLineArguments)
+    public static boolean equalsfunction(String commandline, String commandLineArguments)
     {
         String commandLineNew = parseCommandArguments(commandline);
         if (commandLineNew.equals(commandLineArguments))
+        {
+                return true;
+        }
+        return false;
+    }
+    public static boolean equalsNofunction(String arguments)
+    {
+        if (arguments.equals(arguments))
         {
                 return true;
         }
