@@ -3,7 +3,6 @@ package speedtest;
 import java.util.ArrayList;
 import java.util.List;
 import functions.MathFunctions;
-import histogram.DrawGraph;
 
 public class SpeedTest {
     static String commandLine = "\"C:\\Windows\\system32\\cmd.exe\" /c calc.exe";

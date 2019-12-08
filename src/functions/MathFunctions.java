@@ -1,6 +1,8 @@
 package functions;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 /**
  * MathFunctions
  */
@@ -19,13 +21,20 @@ public class MathFunctions {
     }
 
     public static double median(List<Integer> a){
-        int middle = a.size()/2;
- 
-        if (a.size() % 2 == 1) {
-            return a.get(middle);
+        List<Integer> medianList = new ArrayList<Integer>(a);
+        int middle = medianList.size()/2;
+        Collections.sort(medianList);
+        if (medianList.size() % 2 == 1) {
+            return medianList.get(middle);
         } else {
-           return (a.get(middle-1) + a.get(middle)) / 2.0;
+           return (medianList.get(middle-1) + medianList.get(middle)) / 2.0;
         }
+    }
+
+    public static List<Integer> getSortedList(List<Integer> a){
+        List<Integer> medianList = new ArrayList<Integer>(a);
+        Collections.sort(medianList, Collections.reverseOrder());
+        return medianList;
     }
 
 }
