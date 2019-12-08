@@ -18,14 +18,14 @@ public class SpeedTest {
         long startTime;
         long runtime1 = 0;
         long runtime2 = 0;
-        /* 
+
         System.out.println("Preparing tests ");
-        /* Your function calls here 
-        run1result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
-        run1result = MethodLibrary.equalsNofunction(commandLineArguments);
-        //run1result = MethodLibrary.containsfunction(commandLine, "calc.exe");
-        //run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
-         */
+        // Your function calls here 
+        MethodLibrary.parseCommandArguments(commandLine);
+        MethodLibrary.equalsfunction(commandLine, commandLineArguments);
+        MethodLibrary.equalsNofunction(commandLineArguments, "calc.exe");
+        MethodLibrary.containsfunction(commandLine, "calc.exe");
+        MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
         System.out.println("Running test: ");
         
         do {
