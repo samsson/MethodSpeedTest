@@ -48,7 +48,7 @@ public class MethodLibrary {
     
     public static boolean containsfunction(String commandline, String arguments)
     {
-        if (commandline.matches(arguments))
+        if (commandline.contains(arguments))
         {
             return true;
         }

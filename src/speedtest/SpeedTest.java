@@ -3,6 +3,7 @@ package speedtest;
 import java.util.ArrayList;
 import java.util.List;
 import functions.MathFunctions;
+import histogram.DrawGraph;
 
 public class SpeedTest {
     static String commandLine = "\"C:\\Windows\\system32\\cmd.exe\" /c calc.exe";
@@ -13,8 +14,8 @@ public class SpeedTest {
         int a = 0;
         boolean run1result = false;
         boolean run2result = false;
-        List<Long> run1 = new ArrayList<Long>();
-        List<Long> run2 = new ArrayList<Long>();
+        List<Integer> run1 = new ArrayList<Integer>();
+        List<Integer> run2 = new ArrayList<Integer>();
         long startTime;
         long runtime1 = 0;
         long runtime2 = 0;
@@ -22,6 +23,7 @@ public class SpeedTest {
         System.out.println("Preparing tests ");
         /* Your function calls here */
         run1result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
+        //run1result = MethodLibrary.containsfunction(commandLine, "calc.exe");
         run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
         System.out.println("Ok Running test: ");
         
@@ -31,6 +33,7 @@ public class SpeedTest {
                 startTime = System.nanoTime();
                 /* Your function call here */
                 run1result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
+                //run1result = MethodLibrary.containsfunction(commandLine, "calc.exe");
                 runtime1 = runtime1 +  System.nanoTime() - startTime;
             }
 
@@ -45,8 +48,8 @@ public class SpeedTest {
 
             //System.out.println("Equals & matches in milli: " + run1result + " " + runtime1 + " " + run2result + " " + runtime2 + " "); 
 
-            run1.add(runtime1);
-            run2.add(runtime2);
+            run1.add((int)runtime1);
+            run2.add((int)runtime2);
             runtime1 = 0;
             runtime2 = 0;
             a++;
@@ -73,6 +76,16 @@ public class SpeedTest {
             System.out.println("method2 is " + MathFunctions.getPercentage(runMedian1, runMedian2, a) + " percent faster.");
         }
 
+        histogram.DrawGraph.createAndShowGui(run1);
+
     }
 }
 
+/* final int height = 256;
+        final int[][] data = new int[MedianList1.size()][height];
+        
+        for (int c = 0; c < height; c++) {
+            for (int r = 0; r < MedianList1.size(); r++) {
+                data[c][r] = MedianList1.get(r).intValue();
+            }
+        } */

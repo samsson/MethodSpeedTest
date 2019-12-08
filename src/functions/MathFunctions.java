@@ -14,11 +14,11 @@ public class MathFunctions {
     }
     public static float getPercentage(int val1, int val2, int size)
     {
-        double q = (((double)averageSum(val1, size) - averageSum(val2, size)) / averageSum(val1, size))*100;
-        return (float)q;
+        double q = (((double)val1 - val2) / val1)*100;
+        return (float)q;    
     }
 
-    public static double median(List<Long> a){
+    public static double median(List<Integer> a){
         int middle = a.size()/2;
  
         if (a.size() % 2 == 1) {
