@@ -10,20 +10,19 @@ import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class DrawGraph extends JPanel {
    private static final int MAX_SCORE = 2000000;
    private static final int PREF_W = 2000;
-   private static final int PREF_H = 650;
+   private static final int PREF_H = 600;
    private static final int BORDER_GAP = 30;
-   private static final Color GRAPH_COLOR = Color.green;
+   private static final Color GRAPH_COLOR = Color.blue;
    private static final Color GRAPH_POINT_COLOR = new Color(150, 50, 50, 180);
    private static final Stroke GRAPH_STROKE = new BasicStroke(3f);
-   private static final int GRAPH_POINT_WIDTH = 12;
-   private static final int Y_HATCH_CNT = 10;
+   private static final int GRAPH_POINT_WIDTH = 3;
+   private static final int Y_HATCH_CNT = 20;
    private List<Integer> scores;
 
    public DrawGraph(List<Integer> scores) {
@@ -50,13 +49,14 @@ public class DrawGraph extends JPanel {
       g2.drawLine(BORDER_GAP, getHeight() - BORDER_GAP, BORDER_GAP, BORDER_GAP);
       g2.drawLine(BORDER_GAP, getHeight() - BORDER_GAP, getWidth() - BORDER_GAP, getHeight() - BORDER_GAP);
 
-      // create hatch marks for y axis. 
+      // create hatch marks for y axis
       for (int i = 0; i < Y_HATCH_CNT; i++) {
          int x0 = BORDER_GAP;
          int x1 = GRAPH_POINT_WIDTH + BORDER_GAP;
          int y0 = getHeight() - (((i + 1) * (getHeight() - BORDER_GAP * 2)) / Y_HATCH_CNT + BORDER_GAP);
          int y1 = y0;
          g2.drawLine(x0, y0, x1, y1);
+         
       }
 
       // and for x axis
@@ -95,18 +95,20 @@ public class DrawGraph extends JPanel {
       return new Dimension(PREF_W, PREF_H);
    }
 
-   public static void createAndShowGui(List<Integer> scores) {
-      //List<Integer> scores = new ArrayList<Integer>();
-      Random random = new Random();
-      int maxDataPoints = 16;
-      int maxScore = 20;
-      for (int i = 0; i < maxDataPoints ; i++) {
-         scores.add(random.nextInt(maxScore));
-      }
-      DrawGraph mainPanel = new DrawGraph(scores);
+   public static void createAndShowGui(List<Integer> scores, List<Integer> scores2) {
+      JLabel label1 = new JLabel("First Method");
+      JLabel label2 = new JLabel("Second Method");
+      JPanel container = new JPanel();
+      DrawGraph firstPanel = new DrawGraph(scores);
+      DrawGraph secondPanel = new DrawGraph(scores2);
       JFrame frame = new JFrame("Graph");
+      container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+      container.add(label1);
+      container.add(firstPanel);
+      container.add(label2);
+      container.add(secondPanel);
+      frame.add(container);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      frame.getContentPane().add(mainPanel);
       frame.pack();
       frame.setLocationByPlatform(true);
       frame.setVisible(true);
