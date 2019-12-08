@@ -2,10 +2,6 @@ package speedtest;
 
 public class LibraryFunctions {
 
-    public static void main(String[] args) {
-        
-    }
-
     public static String parseCommandArguments(final String parse_command_line)
     {
         try

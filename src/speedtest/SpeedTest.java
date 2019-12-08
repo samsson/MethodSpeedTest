@@ -7,28 +7,6 @@ public class SpeedTest {
     static String commandLine = "\"C:\\Windows\\system32\\cmd.exe\" /c calc.exe";
     static String commandLineArguments = "/c calc.exe";
 
-    public static int averageSum(final long value, final int count)
-    {
-        // Calculate average result
-        return (int)value / count;
-
-    }
-    public static float getPercentage(int val1, int val2, int size)
-    {
-        final double q = (((double)averageSum(val1, size) - averageSum(val2, size)) / averageSum(val1, size))*100;
-        return (float)q;
-    }
-
-    public static double median(List<Long> a){
-        int middle = a.size()/2;
- 
-        if (a.size() % 2 == 1) {
-            return a.get(middle);
-        } else {
-           return (a.get(middle-1) + a.get(middle)) / 2.0;
-        }
-    }
-
     public static void main(final String[] args) {
 
         int a = 0;
@@ -83,16 +61,16 @@ public class SpeedTest {
           }
         while (a < 500);
         
-        int runMedian1 = (int)median(run1);
-        int runMedian2 = (int)median(run2);
+        int runMedian1 = (int)MathFunctions.median(run1);
+        int runMedian2 = (int)MathFunctions.median(run2);
         
         System.out.println("Test complete.");
         //System.out.println("Lowest numbers in millisec out of: " + a + " rounds, Equals: " + lowestEqual + " Matches: " + lowestMatches);
-        System.out.println("Median result Equals: " + median(run1)/100000 + "ms Matches: " + median(run2)/100000+ "ms");
+        System.out.println("Median result Equals: " + MathFunctions.median(run1)/100000 + "ms Matches: " + MathFunctions.median(run2)/100000+ "ms");
         
         if (runMedian1 < runMedian2)
         {
-            System.out.println("Equals is " + getPercentage(runMedian2, runMedian1, a) + " percent faster.");
+            System.out.println("Equals is " + MathFunctions.getPercentage(runMedian2, runMedian1, a) + " percent faster.");
             /* 
             final double q = (((double)averageSum(matchesSum, a) - averageSum(equalSum, a)) / averageSum(matchesSum, a))*100;
             final float percentage2 = (float)q;
@@ -101,7 +79,7 @@ public class SpeedTest {
         } 
         else
         {
-            System.out.println("Matches is " + getPercentage(runMedian1, runMedian2, a) + " percent faster.");
+            System.out.println("Matches is " + MathFunctions.getPercentage(runMedian1, runMedian2, a) + " percent faster.");
         }
 
     }
