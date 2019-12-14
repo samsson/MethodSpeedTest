@@ -2,7 +2,7 @@ package speedtest;
 
 public class MethodLibrary {
 
-    public static String parseCommandArguments(final String parse_command_line)
+    static String parseCommandArguments(final String parse_command_line)
     {
         try
         {
@@ -27,16 +27,16 @@ public class MethodLibrary {
         }
     }
     
-    public static boolean equalsfunction(String commandline, String commandLineArguments)
+    static boolean equalsfunction()
     {
-        String commandLineNew = parseCommandArguments(commandline);
-        if (commandLineNew.equals(commandLineArguments))
+        String commandLineNew = parseCommandArguments(Test.commandLine);
+        if (commandLineNew.equals(Test.commandLineArguments))
         {
                 return true;
         }
         return false;
     }
-    public static boolean equalsNofunction(String arguments, String equals)
+    static boolean equalsNofunction(String arguments, String equals)
     {
         if (arguments.equals(equals))
         {
@@ -45,7 +45,7 @@ public class MethodLibrary {
         return false;
     }
 
-    public static boolean matchesfunction(String commandline, String regex)
+    static boolean matchesfunction(String commandline, String regex)
     {
         if (commandline.matches(regex))
         {
@@ -54,7 +54,7 @@ public class MethodLibrary {
         return false;
     }
     
-    public static boolean containsfunction(String commandline, String arguments)
+    static boolean containsfunction(String commandline, String arguments)
     {
         if (commandline.contains(arguments))
         {

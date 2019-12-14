@@ -1,40 +1,52 @@
 package speedtest;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import functions.MathFunctions;
 
 public class SpeedTest {
-    static String commandLine = "\"C:\\Windows\\system32\\cmd.exe\" /c calc.exe";
-    static String commandLineArguments = "/c calc.exe";
 
-    public static void main(String[] args) {
+    public static int count = 1000; //increase iterations
+    public static String commandLine = "\"C:\\Windows\\system32\\cmd.exe\" /c calc.exe"; // whole commandline
+    public static String commandLineArguments = "/c calc.exe"; // arguments to verify
+    public static List<Integer> run1 = new ArrayList<Integer>();
+    public static List<Integer> run2 = new ArrayList<Integer>();
+    public static List<Integer> run1sorted = new ArrayList<Integer>();
+    public static List<Integer> run2sorted = new ArrayList<Integer>();
+    public static double run1MedianDouble;
+    public static double run2MedianDouble;
 
-        int a = 0;
-        boolean run1result = false;
-        boolean run2result = false;
-        List<Integer> run1 = new ArrayList<Integer>();
-        List<Integer> run2 = new ArrayList<Integer>();
-        long startTime;
-        long runtime1 = 0;
-        long runtime2 = 0;
-
-        System.out.println("Preparing tests ");
-        // Your function calls here 
-        MethodLibrary.parseCommandArguments(commandLine);
-        MethodLibrary.equalsfunction(commandLine, commandLineArguments);
-        MethodLibrary.equalsNofunction(commandLineArguments, "calc.exe");
-        MethodLibrary.containsfunction(commandLine, "calc.exe");
-        MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
-        System.out.println("Running test: ");
+    public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException,
+            InvocationTargetException, NoSuchMethodException, SecurityException {
         
+        run1 = Test.runtest("equalsfunction");
+        run2 = Test.runtest("equalsfunction");
+        run1sorted = MathFunctions.getSortedList(run1);
+        run2sorted = MathFunctions.getSortedList(run2);
+        run1MedianDouble = MathFunctions.median(run1);
+        run2MedianDouble = MathFunctions.median(run2);
+        int MAX_SCORE = run1sorted.get(0);
+        int MAX_SCORE2 = run2sorted.get(0);
+
+        if (run1MedianDouble < run2MedianDouble)
+        {
+            System.out.println("method1 is " + MathFunctions.getPercentage((int)run2MedianDouble, (int)run1MedianDouble, count) + " percent faster.");
+        } 
+        else
+        {
+            System.out.println("method2 is " + MathFunctions.getPercentage((int)run1MedianDouble, (int)run2MedianDouble, count) + " percent faster.");
+        }
+        System.out.println();
+
+
+        /* 
         do {
             for(int i = 0; i < 1000; ++i)
             {
                 startTime = System.nanoTime();
-                /* Your function call here */
                 //run1result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
-                run1result = MethodLibrary.equalsNofunction(commandLineArguments, "calc.exe");
+                run1result = MethodLibrary.equalsNofunction(commandLineArguments, "/c calc.exe");
                 //run1result = MethodLibrary.containsfunction(commandLine, "calc.exe");
                 runtime1 = runtime1 +  System.nanoTime() - startTime;
             }
@@ -42,7 +54,6 @@ public class SpeedTest {
             for(int i = 0; i < 1000; ++i)
             {
                 startTime = System.nanoTime();
-                /* Your second function call here */
                 //run2result = MethodLibrary.matchesfunction(commandLine, ".*calc\\.exe");
                 run2result = MethodLibrary.equalsfunction(commandLine, commandLineArguments);
                 //run2result = MethodLibrary.containsfunction(commandLine, "calc.exe");
@@ -58,22 +69,20 @@ public class SpeedTest {
           }
         while (a < 1000);
         
-        int runMedian1 = (int)MathFunctions.median(run1);
-        int runMedian2 = (int)MathFunctions.median(run2);
+        double runMedianDouble = MathFunctions.median(run1);
+        double runMedianDouble2 = MathFunctions.median(run2);
         
         System.out.println("Test complete.");
         System.out.println("Median result method1: " + run1result + " " + MathFunctions.median(run1)/100000 + "ms & method2: " + run2result + " " + MathFunctions.median(run2)/100000+ "ms");
         
-        if (runMedian1 < runMedian2)
+        if (runMedianDouble < runMedianDouble2)
         {
-            System.out.println("method1 is " + MathFunctions.getPercentage(runMedian2, runMedian1, a) + " percent faster.");
+            System.out.println("method1 is " + MathFunctions.getPercentage((int)runMedianDouble2, (int)runMedianDouble, a) + " percent faster.");
         } 
         else
         {
-            System.out.println("method2 is " + MathFunctions.getPercentage(runMedian1, runMedian2, a) + " percent faster.");
+            System.out.println("method2 is " + MathFunctions.getPercentage((int)runMedianDouble, (int)runMedianDouble2, a) + " percent faster.");
         }
-
-        histogram.DrawGraph.createAndShowGui(run1, run2);
-
+         */
     }
 }

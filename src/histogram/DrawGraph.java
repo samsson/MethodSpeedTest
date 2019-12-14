@@ -14,10 +14,10 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class DrawGraph extends JPanel {
-   private static final int MAX_SCORE = 2000000;
+   private static final int MAX_SCORE = 400000;
    private static final int PREF_W = 2000;
    private static final int PREF_H = 600;
-   private static final int BORDER_GAP = 30;
+   private static final int BORDER_GAP = 60;
    private static final Color GRAPH_COLOR = Color.blue;
    private static final Color GRAPH_POINT_COLOR = new Color(150, 50, 50, 180);
    private static final Stroke GRAPH_STROKE = new BasicStroke(3f);
@@ -56,6 +56,8 @@ public class DrawGraph extends JPanel {
          int y0 = getHeight() - (((i + 1) * (getHeight() - BORDER_GAP * 2)) / Y_HATCH_CNT + BORDER_GAP);
          int y1 = y0;
          g2.drawLine(x0, y0, x1, y1);
+         g2.drawString(Integer.toString((MAX_SCORE / Y_HATCH_CNT) * (i + 1)), 10, y0);
+         
          
       }
 
@@ -95,9 +97,9 @@ public class DrawGraph extends JPanel {
       return new Dimension(PREF_W, PREF_H);
    }
 
-   public static void createAndShowGui(List<Integer> scores, List<Integer> scores2) {
-      JLabel label1 = new JLabel("First Method");
-      JLabel label2 = new JLabel("Second Method");
+   public static void createAndShowGui(List<Integer> scores, List<Integer> scores2, double median1, double median2) {
+      JLabel label1 = new JLabel("First Method, median execution speed: " + median1/100000 + "ms.");
+      JLabel label2 = new JLabel("Second Method, median execution speed: " + median2/100000 + "ms.");
       JPanel container = new JPanel();
       DrawGraph firstPanel = new DrawGraph(scores);
       DrawGraph secondPanel = new DrawGraph(scores2);
