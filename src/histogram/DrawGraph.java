@@ -1,5 +1,6 @@
 package histogram;
 
+import functions.MathFunctions;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,21 +13,26 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
+import speedtest.SpeedTest;
+
 @SuppressWarnings("serial")
 public class DrawGraph extends JPanel {
-   private static final int MAX_SCORE = 400000;
+   private int MAX_SCORE = 100;
    private static final int PREF_W = 2000;
    private static final int PREF_H = 600;
    private static final int BORDER_GAP = 60;
    private static final Color GRAPH_COLOR = Color.blue;
+   private static final Color GRAPH_COLOR_BLACK = Color.black;
+   private static final Color GRAPH_COLOR_GREY = new Color(211,211,211);
    private static final Color GRAPH_POINT_COLOR = new Color(150, 50, 50, 180);
    private static final Stroke GRAPH_STROKE = new BasicStroke(3f);
    private static final int GRAPH_POINT_WIDTH = 3;
    private static final int Y_HATCH_CNT = 20;
    private List<Integer> scores;
 
-   public DrawGraph(List<Integer> scores) {
+   public DrawGraph(List<Integer> scores, int MAX_SCORE) {
       this.scores = scores;
+      this.MAX_SCORE = MAX_SCORE;
    }
 
    @Override
@@ -51,14 +57,15 @@ public class DrawGraph extends JPanel {
 
       // create hatch marks for y axis
       for (int i = 0; i < Y_HATCH_CNT; i++) {
-         int x0 = BORDER_GAP;
-         int x1 = GRAPH_POINT_WIDTH + BORDER_GAP;
+         
+         int x0 = BORDER_GAP + 1;
+         int x1 = PREF_W - BORDER_GAP;
          int y0 = getHeight() - (((i + 1) * (getHeight() - BORDER_GAP * 2)) / Y_HATCH_CNT + BORDER_GAP);
          int y1 = y0;
+         g2.setColor(GRAPH_COLOR_GREY);
          g2.drawLine(x0, y0, x1, y1);
-         g2.drawString(Integer.toString((MAX_SCORE / Y_HATCH_CNT) * (i + 1)), 10, y0);
-         
-         
+         g2.setColor(GRAPH_COLOR_BLACK);
+         g2.drawString(Float.toString((MAX_SCORE / Y_HATCH_CNT)/100000 * (i + 1)) + "ms", 10, y0);
       }
 
       // and for x axis
@@ -97,17 +104,31 @@ public class DrawGraph extends JPanel {
       return new Dimension(PREF_W, PREF_H);
    }
 
-   public static void createAndShowGui(List<Integer> scores, List<Integer> scores2, double median1, double median2) {
-      JLabel label1 = new JLabel("First Method, median execution speed: " + median1/100000 + "ms.");
-      JLabel label2 = new JLabel("Second Method, median execution speed: " + median2/100000 + "ms.");
+   public static void createAndShowGui() {
       JPanel container = new JPanel();
-      DrawGraph firstPanel = new DrawGraph(scores);
-      DrawGraph secondPanel = new DrawGraph(scores2);
+      DrawGraph firstPanel = new DrawGraph(SpeedTest.run1, SpeedTest.MAX_SCORE);
+      DrawGraph secondPanel = new DrawGraph(SpeedTest.run2, SpeedTest.MAX_SCORE2);
       JFrame frame = new JFrame("Graph");
+      JLabel medianspeed = new JLabel("First Method, median execution speed: " + SpeedTest.run1MedianDouble/100000 + "ms.");
+      JLabel medianspeed2 = new JLabel("Second Method, median execution speed: " + SpeedTest.run2MedianDouble/100000 + "ms.");
       container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-      container.add(label1);
-      container.add(firstPanel);
-      container.add(label2);
+
+      container.add(medianspeed);
+      if (SpeedTest.run1MedianDouble < SpeedTest.run2MedianDouble)
+      {
+         JLabel percentage = new JLabel("method1 is " + MathFunctions.getPercentage((int)SpeedTest.run2MedianDouble, (int)SpeedTest.run1MedianDouble, SpeedTest.count) + " percent faster.");
+         container.add(percentage);
+         container.add(firstPanel);
+         container.add(medianspeed2);
+      } 
+      else
+      {
+         JLabel percentage = new JLabel("method2 is " + MathFunctions.getPercentage((int)SpeedTest.run1MedianDouble, (int)SpeedTest.run2MedianDouble, SpeedTest.count) + " percent faster.");
+         container.add(firstPanel);
+         container.add(medianspeed2);
+         container.add(percentage);
+         
+      }
       container.add(secondPanel);
       frame.add(container);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

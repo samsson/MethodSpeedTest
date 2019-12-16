@@ -29,8 +29,8 @@ public class MethodLibrary {
     
     static boolean equalsfunction()
     {
-        String commandLineNew = parseCommandArguments(Test.commandLine);
-        if (commandLineNew.equals(Test.commandLineArguments))
+        String commandLineNew = parseCommandArguments(SpeedTest.commandLine);
+        if (commandLineNew.equals(SpeedTest.commandLineArguments))
         {
                 return true;
         }
@@ -45,9 +45,9 @@ public class MethodLibrary {
         return false;
     }
 
-    static boolean matchesfunction(String commandline, String regex)
+    static boolean matchesfunction()
     {
-        if (commandline.matches(regex))
+        if (Test.commandLine.matches(SpeedTest.regex))
         {
             return true;
         }
